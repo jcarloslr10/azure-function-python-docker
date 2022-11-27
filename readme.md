@@ -8,6 +8,10 @@ For a `BlobTrigger` to work, you provide a path which dictates where the blobs a
 
 ## Prerequisites
 
+* [Docker](https://docs.docker.com/get-docker) (required)
+* [Python 3.7](https://www.python.org/downloads/release/python-370) (needed to run the function not using Docker)
+* [Azure Function Core Tools v3](https://learn.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=v3%2Cwindows%2Ccsharp%2Cportal%2Cbash) (needed to run the function not using Docker)
+
 ## Installation
 
 To install dependencies run the following command:
@@ -18,12 +22,32 @@ pip install -r requirements.txt
 
 ## Local environment
 
-This project includes a Docker setup for the local environments.
+This project includes a Docker setup for the local environments, although you can also run the function not using Docker.
 
-### Azure Storage Account using Azurite
+### Azure Storage Account using Azurite (required)
 
-Azurite is an open source Azure Storage API compatible server that allows you to easily try Azure Storage in a local environment. Run the following command to get the container up and running:
+Azurite is an open source Azure Storage API compatible server that allows you to easily try Azure Storage in a local environment. Run the following command located in the root folder to get the container up and running:
 
 ```
 docker-compose up --build
+```
+
+The above command also execute the function. If you want to run the function not using Docker, you need to comment out the following service in the docker-compose.yml file to prevent it from running:
+
+```
+  # software_developer_expertise_etl:
+  #   container_name: "software_developer_expertise_etl"
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     FUNCTIONS_WORKER_RUNTIME": python
+  #     AzureWebJobsStorage: DefaultEndpointsProtocol=http...
+  #   restart: always
+```
+
+Then, you just have to run the following command located in the root folder:
+
+```
+func start
 ```
