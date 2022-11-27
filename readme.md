@@ -12,9 +12,16 @@ For a `BlobTrigger` to work, you provide a path which dictates where the blobs a
 * [Python 3.7](https://www.python.org/downloads/release/python-370) (needed to run the function not using Docker)
 * [Azure Function Core Tools v3](https://learn.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=v3%2Cwindows%2Ccsharp%2Cportal%2Cbash) (needed to run the function not using Docker)
 
-## Installation
+## Installation & dependencies
 
-To install dependencies run the following command:
+If you are getting the application up and running not using Docker, first create a Python virtual environment as follows:
+
+```
+python -m venv .venv
+.venv\scripts\activate
+```
+
+To install the dependencies run the following command:
 
 ```
 pip install -r requirements.txt
@@ -31,6 +38,8 @@ Azurite is an open source Azure Storage API compatible server that allows you to
 ```
 docker-compose up --build
 ```
+
+### Python function
 
 The above command also execute the function. If you want to run the function not using Docker, you need to comment out the following service in the docker-compose.yml file to prevent it from running:
 
